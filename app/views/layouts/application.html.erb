@@ -1,26 +1,38 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>AfoochCom</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+    <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
 
-<% if user_signed_in? %>
-    Signed in as <%= current_user.email %>. Not you?
-    <%= link_to "Sign out", destroy_user_session_path,:method => :delete %>
-<% else %>
-    <%= link_to "Sign up", new_user_registration_path %> or
-    <%= link_to "Sign in", new_user_session_path %>
-    <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
-<% end %>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= javascript_include_tag "application" 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
 
-<%= yield %>
+  <body>
+  <nav class="top-bar" data-topbar role="navigation">
+    <div class="small-10 small-centered columns">
+       <ul class="title-area">
+        <li class="name">
+          <h1><a href="#">Afooch - Shopping never was easy!</a></h1>
+        </li>
+       </ul>
+      <section class="top-bar-section">
+      <!-- Left Nav Section -->
+      <ul class="left">
+        <% if user_signed_in? %>
+            <a class="th" href="<%= current_user.photo %>">
+              <img src="<%= current_user.photo %>">
+            </a>
+        <% end %>
+      </ul>
+          </section>
+    </div>
+  </nav>
+    <%= yield %>
 
-</body>
+  </body>
 </html>

@@ -4,6 +4,15 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
+  #Generating User Roles
+  enum role: [:user, :seller, :buyer , :admin]
+  after_initialize :set_default_role, :if => :new_record?
+
+  def set_default_role
+	  self.role ||= :user
+  end
+
+  #Authenticate Users with facebook and save them
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
 	  user = User.where(:provider => auth.provider, :uid => auth.uid).first
 	  if user
