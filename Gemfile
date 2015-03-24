@@ -49,3 +49,9 @@ gem 'omniauth-facebook'
 gem 'foundation-rails'
 
 gem 'sass', '3.4.0'
+
+#Input Select for Countries
+gem 'country_select'
+
+#Installing Admin Backend
+gem 'activeadmin', github: 'activeadmin'

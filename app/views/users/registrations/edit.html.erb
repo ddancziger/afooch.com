@@ -15,6 +15,11 @@
       <%= f.label :last_name %><br />
       <%= f.text_field :last_name %>
     </div>
+
+        <div class="field">
+          <%= f.label :birthday %><br />
+          <%= date_select("article", "birthday",start_year: 1950, prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }) %>
+        </div>
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true %>
@@ -34,7 +39,7 @@
   </div>
   <div class="field">
       <%= f.label :country %><br />
-      <%= f.text_field :country %>
+      <%= country_select("user", "country")%>
   </div>
 
 
