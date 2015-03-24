@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323022750) do
+ActiveRecord::Schema.define(version: 20150323222205) do
 
   create_table "products", force: true do |t|
     t.string "first_name"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20150323022750) do
     t.string   "oauth_token"
     t.datetime "oauth_expires_at"
     t.string   "gender"
+    t.string   "role"
+    t.date     "birthday"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

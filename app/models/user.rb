@@ -22,7 +22,8 @@ class User < ActiveRecord::Base
 		  if registered_user
 			  return registered_user
 		  else
-			  user = User.create(first_name:auth.extra.raw_info.name,
+			  user = User.create(first_name:auth.extra.raw_info.first_name,
+			                     last_name: auth.extra.raw_info.last_name,
 			                     provider:auth.provider,
 			                     uid:auth.uid,
 			                     email:auth.info.email,
