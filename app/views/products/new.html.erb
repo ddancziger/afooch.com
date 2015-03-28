@@ -1,0 +1,79 @@
+
+
+<h1>New product</h1>
+
+    <%= form_for @product, url: {action: "create"} do |f| %>
+    <div class="row">
+        <%= f.label :title %><br />
+        <%= f.text_field :title %>
+
+      <div class="row">
+        <div class="small-2  inline left ">
+          <%= f.label :quantity %>
+          <%= f.number_field :quantity %>
+        </div>
+
+        <div class="small-2  inline left ">
+          <%= f.label :condition %>
+          <%= f.select :condition, Product.conditions.keys.to_a %>
+        </div>
+
+        
+      </div>
+
+      <div class="row">
+
+
+        <div class="small-2  inline left ">
+          <%= f.label :category %>
+          <%= f.select :category_id, Category.all.collect {|p| [ p.name, p.id ] }%>
+        </div>
+
+        <div class="small-2  inline left ">
+          <%= f.label :SubCategory %>
+          <%= f.select :subcategory_id, "Select Subcategory" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-2  inline left ">
+            <%= f.label :minPrice %>
+            <%= f.number_field :minPrice %>
+        </div>
+        <div class="small-2  inline left ">
+            <%= f.label :maxPrice %>
+            <%= f.number_field :maxPrice %>
+        </div>
+        <div class="small-2  inline left ">
+          <%= f.label :currency %>
+          <%= f.select :currency, Product.currencies.keys.to_a %>
+        </div>
+      </div>
+    <div class="row">
+
+          <div class="small-2  inline left ">
+            <%= f.label :numberArrival %>
+            <%= f.number_field :numberArrival  %>
+          </div>
+          <div class="large-2  inline left">
+            <%= f.label :arrival %>
+            <%= f.select :arrival, Product.arrivals.keys.to_a %>
+          </div>
+
+          <div class="large-3  inline left">
+            <%= f.label :cityArrival %>
+            <%= f.text_field :cityArrival, value: current_user.city %>
+          </div>
+          <div class="large-3  inline left">
+            <%= f.label :countryArrival %>
+            <%= country_select("product", "countryArrival", selected: current_user.country) %>
+          </div>
+    </div>
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+
+        <%= f.submit "Create" %>
+    <% end %>
+</div>
+<%= link_to 'Back', products_path %>
+

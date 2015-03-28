@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  quantity: 1
+  status: MyString
+  description: MyText
+  arrival: MyString
+  minPrice: 1
+  maxPrice: 1
+  condition: MyString
+
+two:
+  title: MyString
+  quantity: 1
+  status: MyString
+  description: MyText
+  arrival: MyString
+  minPrice: 1
+  maxPrice: 1
+  condition: MyString
