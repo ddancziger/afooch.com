@@ -1,0 +1,39 @@
+
+<%= form_for @product, url: wizard_path, method: :put do |f| %>
+<div class="row">
+  <div class="small-2  inline left ">
+    <%= f.label :minPrice %>
+    <%= f.number_field :minPrice %>
+  </div>
+  <div class="small-2  inline left ">
+    <%= f.label :maxPrice %>
+    <%= f.number_field :maxPrice %>
+  </div>
+  <div class="small-2  inline left ">
+    <%= f.label :currency %>
+    <%= f.select :currency, Product.currencies.keys.to_a %>
+  </div>
+</div>
+<div class="row">
+
+  <div class="small-2  inline left ">
+    <%= f.label :numberArrival %>
+    <%= f.number_field :numberArrival  %>
+  </div>
+  <div class="large-2  inline left">
+    <%= f.label :arrival %>
+    <%= f.select :arrival, Product.arrivals.keys.to_a %>
+  </div>
+
+  <div class="large-3  inline left">
+    <%= f.label :cityArrival %>
+    <%= f.text_field :cityArrival, value: current_user.city %>
+  </div>
+  <div class="large-3  inline left">
+    <%= f.label :countryArrival %>
+    <%= country_select("product", "countryArrival", selected: current_user.country) %>
+  </div>
+</div>
+
+    <%= f.submit "Delivery Information" %>
+<% end %>

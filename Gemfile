@@ -55,3 +55,6 @@ gem 'country_select'
 
 #Installing Admin Backend
 gem 'activeadmin', github: 'activeadmin'
+
+#Create MultiSetp Wizard Controllers
+gem 'wicked'

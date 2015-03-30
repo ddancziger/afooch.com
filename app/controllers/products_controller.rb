@@ -1,15 +1,20 @@
 class ProductsController < ApplicationController
+
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+
 
   # GET /products
   # GET /products.json
   def index
+
     @products = Product.all
+    render :text => "<pre>" + @products.to_yaml and return
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
+
   end
 
   # GET /products/new
@@ -23,12 +28,17 @@ class ProductsController < ApplicationController
 
   # POST /products
   # POST /products.json
+
   def create
     @product = Product.new(product_params)
+    # @brands = Brand.where(id: product_params[:brands_id])
+    # @product.brand << @brands
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
+	      #render :text => "<pre>" + @product.id.to_s and return
+				session[:product_id] = @product.id
+        format.html { redirect_to product_info_path(id: Wicked::FIRST_STEP) }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }
@@ -69,7 +79,7 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-	    allow = [:title,:quantity,:minPrice, :maxPrice, :currency, :arrival, :numberArrival,:cityArrival,:countryArrival, :condition, :description]
+	    allow = [:title,:quantity,:minPrice, :maxPrice, :currency, :arrival, :numberArrival,:cityArrival,:countryArrival, :condition, :description, :category_id, :subcategory_id, :brands_id]
 	    params.require(:product).permit(allow)
     end
 
