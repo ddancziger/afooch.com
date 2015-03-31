@@ -1,6 +1,30 @@
 <h1>Editing product</h1>
 
-<%= render 'form' %>
+
+<%= form_for @product, url: {action: "create"} do |f| %>
+
+    <ul>
+      <% @product.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+      <% end %>
+    </ul>
+
+    <div class="row">
+      <%= f.label :title %><br />
+      <%= f.text_field :title %>
+
+
+
+
+    </div>
+
+
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+
+    <%= f.submit "Edit" %>
+<% end %>
+</div>
 
 <%= link_to 'Show', @product %> |
 <%= link_to 'Back', products_path %>

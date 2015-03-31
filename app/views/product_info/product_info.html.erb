@@ -1,36 +1,21 @@
 <h2>Basic Info Product</h2>
 
 <%= form_for @product, url: wizard_path, method: :put do |f| %>
-<div class="row">
+    <div class="form-group">
+        #select_tag "brands_id",options_from_collection_for_select(Brand.all,"id","company"), :multiple => true
 
-  <div class="small-2  inline left ">
+        <%= f.label :category %>
+        <%= f.select :category_id, Category.all.collect {|p| [ p.name, p.id ]}, {:prompt => 'Select Category' }%>
 
+        <%= f.label :SubCategory %>
+        <%= f.select :subcategory_id,{},:prompt => 'Select Subcategory' %>
 
-    #select_tag "brands_id",options_from_collection_for_select(Brand.all,"id","company"), :multiple => true
-  </div>
+        <%= f.label :quantity %>
+        <%= f.number_field :quantity %>
 
+        <%= f.label :condition %>
+        <%= f.select :condition, Product.conditions.keys.to_a %>
 
-  <div class="small-2  inline left ">
-    <%= f.label :category %>
-    <%= f.select :category_id, Category.all.collect {|p| [ p.name, p.id ]}, {:prompt => 'Select Category' }%>
-  </div>
-
-  <div class="small-2  inline left ">
-    <%= f.label :SubCategory %>
-    <%= f.select :subcategory_id,{},:prompt => 'Select Subcategory' %>
-  </div>
-
-  <div class="row">
-    <div class="small-2  inline left ">
-      <%= f.label :quantity %>
-      <%= f.number_field :quantity %>
+        <%= f.submit "Delivery Information", class: "btn btn-default" %>
     </div>
-
-    <div class="small-2  inline left ">
-      <%= f.label :condition %>
-      <%= f.select :condition, Product.conditions.keys.to_a %>
-    </div>
-</div>
-
-  <%= f.submit "Delivery Information" %>
 <% end %>

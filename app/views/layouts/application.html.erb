@@ -13,29 +13,19 @@
   </head>
 
   <body>
-  <nav class="top-bar" data-topbar role="navigation">
-    <div class="small-10 small-centered columns">
-       <ul class="title-area">
-        <li class="name">
-          <h1><a href="#">Afooch - Shopping never was easy!</a></h1>
-        </li>
-       </ul>
-      <section class="top-bar-section">
-      <!-- Left Nav Section -->
-      <ul class="left">
-        <% if user_signed_in? %>
-            <a class="th" href="<%= current_user.photo %>">
-              <img src="<%= current_user.photo %>">
-            </a>
-        <% end %>
-      </ul>
-          </section>
-    </div>
-  </nav>
-  <div class="row">
-    <div class="large-12 columns">
-    <%= yield %>
-    </div>
-  </div>
+      <%= nav_bar static: :top, brand:  "Afooch - Shopping Never Was So Easy!", responsive: true, inverse: true do %>
+          <%= menu_group pull: :right do %>
+              <% if current_user %>
+                  <img src="<%= current_user.photo %>" class="img-thmubail">
+                  <%= menu_item "Log Out", destroy_user_session_path %>
+              <% end %>
+          <% end %>
+      <% end %>
+
+      <div class="row">
+        <div class="col-md-12">
+            <%= yield %>
+        </div>
+      </div>
   </body>
 </html>

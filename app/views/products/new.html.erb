@@ -2,28 +2,22 @@
 
 <h1>New product</h1>
 
-    <%= form_for @product, url: {action: "create"} do |f| %>
+    <%= form_for @product, url: {action: "create"}, class: "form-horizontal" do |f| %>
+        <div class="form-group">
+            <ul>
+              <% @product.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
 
-    <ul>
-      <% @product.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-      <% end %>
-    </ul>
+            <%= f.label :title %><br />
+            <%= f.text_field :title %>
 
-    <div class="row">
-        <%= f.label :title %><br />
-        <%= f.text_field :title %>
+            <%= f.label :description %>
+            <%= f.text_area :description %>
 
-
-
-        
-     </div>
-
-
-      <%= f.label :description %>
-      <%= f.text_area :description %>
-
-        <%= f.submit "Create" %>
+            <%= f.submit "Product information", class: "btn btn-default" %>
+        </div>
     <% end %>
 </div>
 <%= link_to 'Back', products_path %>

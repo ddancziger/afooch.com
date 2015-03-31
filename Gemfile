@@ -46,15 +46,16 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 
 #Foundation Front end FrameWork
-gem 'foundation-rails'
+#gem "therubyracer"
+#gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem "twitter-bootstrap-rails"
 
 gem 'sass', '3.4.0'
 
+#MultiStep Forms
+gem 'wicked'
 #Input Select for Countries
 gem 'country_select'
 
 #Installing Admin Backend
 gem 'activeadmin', github: 'activeadmin'
-
-#Create MultiSetp Wizard Controllers
-gem 'wicked'
