@@ -2,7 +2,7 @@
 
 <%= form_for @product, url: wizard_path, method: :put do |f| %>
     <div class="form-group">
-        #select_tag "brands_id",options_from_collection_for_select(Brand.all,"id","company"), :multiple => true
+        <%= select_tag "brands_id",options_from_collection_for_select(Brand.all,"id","company"), :multiple => true %>
 
         <%= f.label :category %>
         <%= f.select :category_id, Category.all.collect {|p| [ p.name, p.id ]}, {:prompt => 'Select Category' }%>
@@ -14,7 +14,7 @@
         <%= f.number_field :quantity %>
 
         <%= f.label :condition %>
-        <%= f.select :condition, Product.conditions.keys.to_a %>
+        <%= f.select :condition, Product.conditions.keys.to_a.map { |w| [w.humanize, w] } %>
 
         <%= f.submit "Delivery Information", class: "btn btn-default" %>
     </div>

@@ -6,13 +6,13 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @products = Product.all
-    render :text => "<pre>" + @products.to_yaml and return
+    #render :text => "<pre>" + @products.to_yaml and return
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
-
+		@product = Product.find(params[:id])
   end
 
   # GET /products/new
@@ -31,7 +31,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
     # @brands = Brand.where(id: product_params[:brands_id])
     # @product.brand << @brands
-
+		@product.user_id = current_user.id
     respond_to do |format|
       if @product.save
 	      #render :text => "<pre>" + @product.id.to_s and return
@@ -48,10 +48,13 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
+	  #render :text => "<pre>" + params[:product][:brands_id].to_s and return
     respond_to do |format|
       if @product.update(product_params)
-	      session[:product_id] = @product.id
-        format.html { redirect_to product_info_path(id: Wicked::FIRST_STEP) }#redirect_to @product, notice: 'Product was successfully updated.' }
+				if params[:product][:brands_id]
+	        @product.update(brand: Brand.find(params[:product][:brands_id]))
+	      end
+        format.html { redirect_to  @product, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit }

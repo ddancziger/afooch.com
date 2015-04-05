@@ -59,3 +59,6 @@ gem 'country_select'
 
 #Installing Admin Backend
 gem 'activeadmin', github: 'activeadmin'
+
+#In Line Editing Gem
+gem 'best_in_place' , github: 'bernat/best_in_place'

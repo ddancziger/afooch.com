@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150330004055) do
+ActiveRecord::Schema.define(version: 20150405003237) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -70,24 +70,42 @@ ActiveRecord::Schema.define(version: 20150330004055) do
     t.datetime "updated_at"
   end
 
+  create_table "offers", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.integer  "price"
+    t.integer  "arrivalTime"
+    t.string   "arrival"
+    t.string   "title"
+    t.string   "condition"
+    t.text     "description"
+    t.string   "return_policy"
+    t.datetime "expire"
+    t.string   "guarantee"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "currency"
+  end
+
   create_table "products", force: true do |t|
     t.string   "photo"
     t.string   "title"
     t.integer  "quantity"
     t.string   "status"
     t.text     "description"
-    t.string   "arrival"
+    t.integer  "arrival",        limit: 255
     t.integer  "minPrice"
     t.integer  "maxPrice"
-    t.string   "condition"
+    t.integer  "condition",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "cityArrival"
     t.string   "countryArrival"
     t.integer  "numberArrival"
-    t.string   "currency"
+    t.integer  "currency",       limit: 255
     t.integer  "category_id"
     t.integer  "subcategory_id"
+    t.integer  "user_id"
   end
 
   create_table "subcategories", force: true do |t|

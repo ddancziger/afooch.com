@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :offers
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 	devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "users/registrations"}
@@ -19,7 +21,7 @@ Rails.application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   resources :products
 	resources :product_info
-
+	resources :offers
   # Example resource route with options:
   #   resources :products do
   #     member do

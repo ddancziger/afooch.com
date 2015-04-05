@@ -13,7 +13,7 @@
             </div>
             <div class="col-md-4">
                 <%= f.label :currency %>
-                <%= f.select :currency, Product.currencies.keys.to_a %>
+                <%= f.select :currency, Product.currencies.keys.to_a.map { |w| [w.humanize, w] } %>
             </div>
         </div>
        </div>
@@ -27,7 +27,7 @@
                 </div>
               <div class="col-md-4">
                 <%= f.label :arrival %>
-                <%= f.select :arrival, Product.arrivals.keys.to_a %>
+                <%= f.select :arrival, Product.arrivals.keys.to_a.map { |w| [w.humanize, w] } %>
               </div>
             </div>
           </div>
@@ -41,11 +41,11 @@
         <div class="col-md-12">
             <div class="col-md-4">
                 <%= f.label :cityArrival %>
-                <%= f.text_field :cityArrival, value: current_user.city, class:"form-control" %>
+                <%= f.text_field :cityArrival, value: (nil || current_user.city), class:"form-control" %>
             </div>
             <div class="col-md-4">
                 <%= f.label :countryArrival %>
-                <%= country_select("product", "countryArrival", selected: current_user.country, class:"form-control") %>
+                <%= country_select("product", "countryArrival", selected: (nil || current_user.country), class:"form-control") %>
             </div>
         </div>
       </div>

@@ -1,0 +1,62 @@
+<h1>Create Offer</h1>
+
+
+<%= form_for @offer, { method: :create } do |f| %>
+
+    <ul>
+      <% @offer.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+      <% end %>
+    </ul>
+    <%= hidden_field_tag("product_id",params["product_id"]) %>
+    <div class="form-group">
+      <%= f.label :title %><br />
+      <%= f.text_field :title %>
+
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+    </div>
+    <div class="form-group">
+
+      <% Brand.all.each do |bran| %>
+
+      <% end %>
+
+      <%= f.label :condition %>
+      <%= f.select :condition, Product.conditions.keys.to_a.map { |w| [w.humanize, w] } %>
+
+    </div>
+
+    <div class="form-group">
+      <div class="form-group">
+        <div class="col-md-12">
+          <div class="col-md-4">
+            <%= f.label :price %>
+            <%= f.number_field :price %>
+          </div>
+          <div class="col-md-4">
+            <div class="col-md-4">
+              <%= f.label :currency %>
+              <%= f.select :currency, Product.currencies.keys.to_a.map { |w| [w.humanize, w] } %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="col-md-12">
+          <div class="col-md-4">
+            <%= f.label :expire %>
+            <%= f.datetime_select :expire, default: 7.days.from_now  %>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <%= f.submit "Offer Me!", class: "btn btn-default pull-right" %>
+<% end %>
+</div>
+
+<%= link_to 'Back', offers_path %>

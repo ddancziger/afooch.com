@@ -1,1 +1,65 @@
 <h2>Basic Info Product</h2>
+
+
+<div class="row">
+    <div class="col-md-3">
+      <%= image_tag("thumbnail-default.jpg") %>
+    </div>
+
+    <div class="col-md-7">
+      <h3><%= @product.title %><% if current_user.id == @product.user_id %><%= link_to 'Edit Product',edit_product_path(@product.id) %><% end %></h3>
+        <%= link_to "Offer Me", new_offer_path(product_id: @product.id) %>
+      <h5>Quantity:</h5><p> <%= @product.quantity %></p>
+      <h5>Minimun Price:</h5><p> <%= @product.minPrice %> <%= @product.currency %></p>
+      <h5>Maximum Price:</h5><p> <%= @product.maxPrice %> <%= @product.currency %></p>
+      <h5>Condition:</h5><p> <%= @product.condition %></p>
+      <h5>Brands:</h5>
+        <p>
+          <% @product.brand.each do |bran| %>
+            <span class="label label-primary"><%= bran.company %></span>
+           <% end %>
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div role="tabpanel">
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
+        <li role="presentation"><a href="#delivery" aria-controls="delivery" role="tab" data-toggle="tab">Delivery Information</a></li>
+
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="description">
+          <p><%= @product.description %></p>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="delivery">
+
+          <h6>Delivery Time:</h6> <%= @product.numberArrival %> <%= @product.arrival %><br />
+          <h6>Delivery Place:</h6> <%= @product.cityArrival %>, <%= @product.countryArrival %><br />
+
+
+        </div>
+
+      </div>
+
+</div>
+  <div class="row">
+    Offers:
+    <% @product.offers.each do |offer| %>
+        <div class="panel panel-default">
+          <div class="panel-heading"><%= offer.title %></div>
+          <div class="panel-body">
+            <p>
+              Price: <%= offer.price %><br />
+              Description: <%= offer.description %><br />
+              Offer at: <%= offer.created_at %>
+            </p>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
