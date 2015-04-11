@@ -4,7 +4,7 @@ class SubcategoryController < ApplicationController
 		cat = Category.find(params[:cat_id])
 		if cat
 				sub =  cat.subcategories.all.to_a
-				select_box = ""
+				select_box = "<option>Select SubCategory</option>"
 				sub.each do |category|
 
 					select_box += '<option value="'+category.id.to_s+'">'+category.name+'</option>'

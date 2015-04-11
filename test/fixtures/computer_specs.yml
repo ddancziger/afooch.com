@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product_id: 1
+  offer_id: 1
+  processor: MyString
+  ram: 
+  hard: MyString
+  monitor: 1
+
+two:
+  product_id: 1
+  offer_id: 1
+  processor: MyString
+  ram: 
+  hard: MyString
+  monitor: 1

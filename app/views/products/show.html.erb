@@ -26,13 +26,18 @@
 
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
+
+        <li role="presentation" class="active"><a href="#specs" aria-controls="delivery" role="tab" data-toggle="tab">Product Specifications</a></li>
+        <li role="presentation" ><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
         <li role="presentation"><a href="#delivery" aria-controls="delivery" role="tab" data-toggle="tab">Delivery Information</a></li>
 
       </ul>
 
       <!-- Tab panes -->
       <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="specs">
+         <%= product_specs @product %>
+        </div>
         <div role="tabpanel" class="tab-pane active" id="description">
           <p><%= @product.description %></p>
         </div>
@@ -56,6 +61,7 @@
             <p>
               Price: <%= offer.price %><br />
               Description: <%= offer.description %><br />
+              Brand: <%= offer.brand.company %><br />
               Offer at: <%= offer.created_at %>
             </p>
           </div>

@@ -2,6 +2,10 @@ class Product < ActiveRecord::Base
 
 	belongs_to :category
 	belongs_to :subcategory
+	belongs_to :computer_spec
+	belongs_to :camera_spec
+	accepts_nested_attributes_for :computer_spec
+	accepts_nested_attributes_for :camera_spec
 	has_and_belongs_to_many :brand
 	has_many :offers
 	enum condition: ['like new','used']
@@ -23,7 +27,7 @@ class Product < ActiveRecord::Base
 	end
 
 	def active_or_product?
-		(status || nil).include?('product') || active?
+		(status || '').include?('product') || active?
 	end
 
 	def active_or_delivery?

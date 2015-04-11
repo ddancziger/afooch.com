@@ -1,6 +1,8 @@
 class Offer < ActiveRecord::Base
 
-	has_one :product
-	has_one :user
-
+	belongs_to :product
+	belongs_to :user
+	belongs_to :brand
+	belongs_to :computer_spec
+	belongs_to :camera_spec
 end

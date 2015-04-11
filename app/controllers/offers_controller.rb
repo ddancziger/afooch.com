@@ -25,7 +25,7 @@ class OffersController < InheritedResources::Base
   private
 
     def offer_params
-      params.require(:offer).permit(:title,:price,:expire,:product_id,:description,:condition)
+      params.require(:offer).permit(:title,:price,:expire,:product_id,:description,:condition,:currency,:brand_id)
     end
 end
 

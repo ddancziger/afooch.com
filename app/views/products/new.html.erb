@@ -1,8 +1,10 @@
 
 
 <h1>New product</h1>
+<%= form_for @product, url: {action: "create"}, class: "form-horizontal" do |f| %>
+<fieldset>
+  <legend>Basic Info</legend>
 
-    <%= form_for @product, url: {action: "create"}, class: "form-horizontal" do |f| %>
         <div class="form-group">
             <ul>
               <% @product.errors.full_messages.each do |msg| %>
@@ -16,9 +18,82 @@
             <%= f.label :description %>
             <%= f.text_area :description %>
 
-            <%= f.submit "Product information", class: "btn btn-default" %>
-        </div>
-    <% end %>
-</div>
-<%= link_to 'Back', products_path %>
 
+        </div>
+
+</div>
+</fieldset>
+
+<fieldset>
+  <legend>More Info</legend>
+  <div class="form-group">
+    <%= select_tag "brands_id",options_from_collection_for_select(Brand.all,"id","company"), :multiple => true %>
+
+    <%= f.label :category %>
+    <%= f.select :category_id, Category.all.collect {|p| [ p.name, p.id ]}, {:prompt => 'Select Category' }%>
+
+    <%= f.label :SubCategory %>
+    <%= f.select :subcategory_id,{},:prompt => 'Select Subcategory' %>
+
+    <%= f.label :quantity %>
+    <%= f.number_field :quantity %>
+
+    <%= f.label :condition %>
+    <%= f.select :condition, Product.conditions.keys.to_a.map { |w| [w.humanize, w] } %>
+
+    <%= render "products/specs_forms/computer_form", {box: f, display: true} %>
+    <%= render "products/specs_forms/camera_form", {box: f, display: true} %>
+  </div>
+
+
+
+</fieldset>
+
+<fieldset>
+  <legend>Delivery Info</legend>
+  <div class="form-group">
+    <div class="col-md-12">
+      <div class="col-md-4">
+        <%= f.label :minPrice %>
+        <%= f.number_field :minPrice %>
+      </div>
+      <div class="col-md-4">
+        <%= f.label :maxPrice %>
+        <%= f.number_field :maxPrice %>
+      </div>
+      <div class="col-md-4">
+        <%= f.label :currency %>
+        <%= f.select :currency, Product.currencies.keys.to_a.map { |w| [w.humanize, w] } %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <div class="col-md-12">
+      <div class="col-md-4">
+        <%= f.label :numberArrival %>
+        <%= f.number_field :numberArrival  %>
+      </div>
+      <div class="col-md-4">
+        <%= f.label :arrival %>
+        <%= f.select :arrival, Product.arrivals.keys.to_a.map { |w| [w.humanize, w] } %>
+      </div>
+    </div>
+  </div>
+    <div class="form-group">
+        <div class="col-md-12">
+          <div class="col-md-4">
+            <%= f.label :cityArrival %>
+            <%= f.text_field :cityArrival, value: (nil || current_user.city), class:"form-control" %>
+          </div>
+          <div class="col-md-4">
+            <%= f.label :countryArrival %>
+            <%= country_select("product", "countryArrival", selected: (nil || current_user.country), class:"form-control") %>
+          </div>
+        </div>
+    </div>
+</fieldset>
+    <%= f.submit "Create", class: "btn btn-default" %>
+  <% end %>
+<%= link_to 'Back', products_path %>

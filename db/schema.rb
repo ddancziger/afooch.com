@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405003237) do
+ActiveRecord::Schema.define(version: 20150409132542) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -63,9 +63,30 @@ ActiveRecord::Schema.define(version: 20150405003237) do
     t.integer "brand_id"
   end
 
+  create_table "camera_specs", force: true do |t|
+    t.integer  "offer_id"
+    t.integer  "product_id"
+    t.integer  "mega_pixel"
+    t.string   "type_cam"
+    t.integer  "optical_zoom"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "categories", force: true do |t|
     t.string   "name"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "computer_specs", force: true do |t|
+    t.integer  "product_id"
+    t.integer  "offer_id"
+    t.string   "processor"
+    t.integer  "ram"
+    t.string   "hard"
+    t.integer  "monitor"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -85,6 +106,9 @@ ActiveRecord::Schema.define(version: 20150405003237) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "currency"
+    t.integer  "brand_id"
+    t.integer  "computer_spec_id"
+    t.integer  "camera_spec_id"
   end
 
   create_table "products", force: true do |t|
@@ -93,19 +117,21 @@ ActiveRecord::Schema.define(version: 20150405003237) do
     t.integer  "quantity"
     t.string   "status"
     t.text     "description"
-    t.integer  "arrival",        limit: 255
+    t.integer  "arrival",          limit: 255
     t.integer  "minPrice"
     t.integer  "maxPrice"
-    t.integer  "condition",      limit: 255
+    t.integer  "condition",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "cityArrival"
     t.string   "countryArrival"
     t.integer  "numberArrival"
-    t.integer  "currency",       limit: 255
+    t.integer  "currency",         limit: 255
     t.integer  "category_id"
     t.integer  "subcategory_id"
     t.integer  "user_id"
+    t.integer  "computer_spec_id"
+    t.integer  "camera_spec_id"
   end
 
   create_table "subcategories", force: true do |t|

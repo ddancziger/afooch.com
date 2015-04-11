@@ -1,0 +1,20 @@
+<div id="camera_form" class="form-group" <% if display %>style="display: none" <% end %>>
+  <%= box.fields_for :camera_spec do |c| %>
+
+      <div class="col-md-4">
+        <%= c.label "Mega Pixels" %>
+        <%= c.select :mega_pixel, ComputerSpec.rams.keys.to_a.map { |w| [w.humanize, w] } %>
+      </div>
+
+      <div class="col-md-4">
+        <%= c.label "Type" %>
+        <%= c.text_field :type_cam %>
+      </div>
+
+      <div class="col-md-4">
+        <%= c.label "Optical Zoom" %>
+        <%= c.select :optical_zoom, ComputerSpec.rams.keys.to_a.map { |w| [w.humanize, w] } %>
+      </div>
+
+  <% end %>
+</div>

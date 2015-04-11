@@ -1,0 +1,24 @@
+<div id="computer_form" class="form-group" <% if display %>style="display: none" <% end %>>
+  <%= box.fields_for :computer_spec do |c| %>
+    <div class="col-md-4">
+      <%= c.label :processor %>
+      <%= c.text_field :processor %>
+    </div>
+
+      <div class="col-md-4">
+        <%= c.label "Memory RAM" %>
+        <%= c.select :ram, ComputerSpec.rams.keys.to_a.map { |w| [w.humanize, w] } %>
+      </div>
+
+      <div class="col-md-4">
+        <%= c.label "Hard Drive" %>
+        <%= c.select :hard, ComputerSpec.rams.keys.to_a.map { |w| [w.humanize, w] } %>
+      </div>
+
+      <div class="col-md-4">
+        <%= c.label "Monitor Size" %>
+        <%= c.select :monitor, ComputerSpec.rams.keys.to_a.map { |w| [w.humanize, w] } %>
+      </div>
+
+  <% end %>
+</div>

@@ -35,6 +35,8 @@
       <%= f.label :condition %>
       <%= f.select :condition, Product.conditions.keys.to_a.map { |w| [w.humanize, w] } %>
 
+      <%= render specs_form(@product.subcategory_id), box: f  %>
+
     </div>
 
     <div class="form-group">
