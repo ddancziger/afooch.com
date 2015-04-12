@@ -8,8 +8,11 @@
           <li><%= msg %></li>
       <% end %>
     </ul>
-    <% product_id = params['product_id'] %>
+    <% product_id = params['product_id']
+       @product = Product.find(product_id)
+    %>
     <%= hidden_field_tag("product_id",params["product_id"]) %>
+    <%= hidden_field_tag("subcategory_id",@product.subcategory_id) %>
     <div class="form-group">
       <%= f.label :title %><br />
       <%= f.text_field :title %>
@@ -28,7 +31,7 @@
 
     </div>
     <div class="form-group">
-      <%= render specs_form(Product.find(product_id).subcategory_id), box:f  %>
+      <%= render specs_form(@product.subcategory_id), box:f  %>
     </div>
     <div class="form-group">
       <div class="form-group">
