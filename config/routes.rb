@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  post '/rate' => 'rater#create', :as => 'rate'
   resources :offers
 
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -19,13 +20,20 @@ Rails.application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
-  get 'products/my_products' => 'products#my_products', as: 'myproducts'
+
 	resources :offers
 
 	#Products Routs
+  get 'test' => 'products#test'
+  get 'products/my_products' => 'products#my_products', as: 'myproducts'
+  get 'products/search' => 'products#products_search'
+  get 'products/:category/:subcategory' => 'products#products_subcategory', as: 'products_subcategory'
   resources :products
   resources :product_info
 
+
+	#Categories Routes
+	get 'category/:category' => 'categories#products_categories'
 
   # Example resource route with options:
   #   resources :products do

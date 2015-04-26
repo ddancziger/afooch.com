@@ -1,0 +1,21 @@
+%h2 Subcategory
+
+.col-md-3
+  = smart_listing_controls_for(:products, {class: "form-inline text-right"}) do
+    = hidden_field_tag "subcategory", params[:subcategory]
+    - Product.conditions.keys.each do |condition|
+      = radio_button_tag :condition, condition, checked = false
+      = condition
+    = radio_button_tag :condition, '', checked = false
+    All
+    %h5 Prices Between
+    = text_field_tag(:minPrice)
+    = text_field_tag(:maxPrice)
+    - if params[:subcategory].eql?('1')
+      = label_tag "Memory RAM"
+      - ComputerSpec.rams.keys.each do |ram|
+        = hidden_field_tag 'ram_'+ComputerSpec.rams[ram].to_s, ''
+        = check_box_tag 'ram_'+ComputerSpec.rams[ram].to_s, ComputerSpec.rams[ram]
+        = ram
+.col-md-9
+  = smart_listing_render(:products)

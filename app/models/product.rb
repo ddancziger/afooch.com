@@ -4,10 +4,13 @@ class Product < ActiveRecord::Base
 	belongs_to :subcategory
 	belongs_to :computer_spec
 	belongs_to :camera_spec
+	belongs_to :user
 	accepts_nested_attributes_for :computer_spec
 	accepts_nested_attributes_for :camera_spec
 	has_and_belongs_to_many :brand
 	has_many :offers
+	has_many :pictures, :dependent => :destroy
+	accepts_nested_attributes_for :pictures
 	enum condition: ['like new','used']
 	enum arrival: ['day(s)','week(s)','month']
 	enum currency: ['USD','NIS']
@@ -34,4 +37,17 @@ class Product < ActiveRecord::Base
 		(status || '').include?('delivery') || active?
 	end
 
+	def self.search(search)
+		find(:all, :conditions => ["title like ?", "%#{search}%"])
+	end
+
+	def price
+		if self.maxPrice and self.minPrice
+			(self.maxPrice + self.minPrice)/2
+		elsif self.maxPrice and !self.minPrice
+			self.maxPrice
+		else
+			self.minPrice
+		end
+	end
 end

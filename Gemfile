@@ -62,3 +62,14 @@ gem 'activeadmin', github: 'activeadmin'
 
 #In Line Editing Gem
 gem 'best_in_place' , github: 'bernat/best_in_place'
+
+#Photo Management
+gem "paperclip", "~> 3.5.3"
+
+#Filtering Sorting GEM
+gem "smart_listing"
+
+gem 'haml'
+
+#Rating Users
+gem 'ratyrate'

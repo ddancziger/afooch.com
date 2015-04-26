@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409132542) do
+ActiveRecord::Schema.define(version: 20150426182655) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -45,6 +45,15 @@ ActiveRecord::Schema.define(version: 20150409132542) do
 
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+
+  create_table "average_caches", force: true do |t|
+    t.integer  "rater_id"
+    t.integer  "rateable_id"
+    t.string   "rateable_type"
+    t.float    "avg",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "branches", force: true do |t|
     t.string   "companyName"
@@ -91,24 +100,46 @@ ActiveRecord::Schema.define(version: 20150409132542) do
     t.datetime "updated_at"
   end
 
-  create_table "offers", force: true do |t|
+  create_table "feedbacks", force: true do |t|
+    t.integer  "shipping_time"
+    t.integer  "matching"
     t.integer  "user_id"
-    t.integer  "product_id"
-    t.integer  "price"
-    t.integer  "arrivalTime"
-    t.string   "arrival"
-    t.string   "title"
-    t.string   "condition"
-    t.text     "description"
-    t.string   "return_policy"
-    t.datetime "expire"
-    t.string   "guarantee"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "currency"
-    t.integer  "brand_id"
-    t.integer  "computer_spec_id"
-    t.integer  "camera_spec_id"
+  end
+
+# Could not dump table "offers" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
+
+  create_table "overall_averages", force: true do |t|
+    t.integer  "rateable_id"
+    t.string   "rateable_type"
+    t.float    "overall_avg",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "photos", force: true do |t|
+    t.integer  "product_id"
+    t.integer  "offer_id"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pictures", force: true do |t|
+    t.integer  "offer_id"
+    t.integer  "product_id"
+    t.string   "description"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image_file_name"
+    t.integer  "user_id"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "image_url"
   end
 
   create_table "products", force: true do |t|
@@ -133,6 +164,31 @@ ActiveRecord::Schema.define(version: 20150409132542) do
     t.integer  "computer_spec_id"
     t.integer  "camera_spec_id"
   end
+
+  create_table "rates", force: true do |t|
+    t.integer  "rater_id"
+    t.integer  "rateable_id"
+    t.string   "rateable_type"
+    t.float    "stars",         null: false
+    t.string   "dimension"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rates", ["rateable_id", "rateable_type"], name: "index_rates_on_rateable_id_and_rateable_type"
+  add_index "rates", ["rater_id"], name: "index_rates_on_rater_id"
+
+  create_table "rating_caches", force: true do |t|
+    t.integer  "cacheable_id"
+    t.string   "cacheable_type"
+    t.float    "avg",            null: false
+    t.integer  "qty",            null: false
+    t.string   "dimension"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rating_caches", ["cacheable_id", "cacheable_type"], name: "index_rating_caches_on_cacheable_id_and_cacheable_type"
 
   create_table "subcategories", force: true do |t|
     t.string   "name"
@@ -159,7 +215,6 @@ ActiveRecord::Schema.define(version: 20150409132542) do
     t.string   "last_name"
     t.string   "country"
     t.string   "city"
-    t.string   "photo"
     t.string   "provider"
     t.string   "uid"
     t.string   "oauth_token"
@@ -167,8 +222,16 @@ ActiveRecord::Schema.define(version: 20150409132542) do
     t.string   "gender"
     t.string   "role"
     t.date     "birthday"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 

@@ -19,6 +19,14 @@
 
       <%= f.label :description %>
       <%= f.text_area :description %>
+
+      <div class="control-group">
+        <%= f.label :pictures, :class => 'control-label' %>
+        <div class="controls">
+
+          <%= f.file_field :pictures, multiple: true, name: "offer[images][]" %>
+        </div>
+      </div>
     </div>
     <div class="form-group">
 

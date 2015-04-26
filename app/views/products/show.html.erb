@@ -56,8 +56,11 @@
     Offers:
     <% @product.offers.each do |offer| %>
         <div class="panel panel-default">
-          <div class="panel-heading"><%= offer.title %> ... <% if current_user == offer.user %><%= link_to "Edit Offer", edit_offer_path(offer.id) %><% end %></div>
+          <div class="panel-heading"><%= offer.title %> ... <% if current_user == offer.user %><%= link_to "Edit Offer", edit_offer_path(offer.id) %><% end %>   <%= offer.user.first_name %></div>
           <div class="panel-body">
+            <% if current_user %>
+                Matching: <%= rating_for offer.user, "matching" %>
+            <% end %>
             <p>
               Price: <%= offer.price %><br />
               Description: <%= offer.description %><br />

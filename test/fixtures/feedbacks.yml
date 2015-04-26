@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  shipping_time: 1
+  matching: 1
+  user_id: 1
+
+two:
+  shipping_time: 1
+  matching: 1
+  user_id: 1

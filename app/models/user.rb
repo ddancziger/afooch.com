@@ -1,12 +1,28 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
+
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
-
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :confirmable
   #Generating User Roles
   enum role: [:user, :seller, :buyer , :admin]
   after_initialize :set_default_role, :if => :new_record?
+
+  #Rating User
+  ratyrate_rater
+  has_one :feedback
+  ratyrate_rateable 'matching', 'shipping_time'
+	has_attached_file :avatar,
+	                  :path => ":rails_root/public/images/users/:style/:filename",
+	                  :url  => "/images/users/:style/:filename",
+	                  styles: {
+			                  thumb: '60x60!',
+			                  square: '200x200#',
+			                  medium: '300x300>'
+	                  }
+
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+
 
   def set_default_role
 	  self.role ||= :user

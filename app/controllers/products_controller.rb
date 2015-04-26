@@ -2,7 +2,61 @@ class ProductsController < ApplicationController
 
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, :except => [:index,:show]
-  skip_before_action :set_product, only: [:my_products]
+  skip_before_action :set_product, only: [:my_products,:products_search]
+
+  include SmartListing::Helper::ControllerExtensions
+  helper  SmartListing::Helper
+  def test
+	  #render :text => "<pre>" + params.to_yaml and return
+
+	  i = 0
+	  rams = Array.new
+	  ComputerSpec.rams.keys.each do |ram|
+		  if params['ram_'+ComputerSpec.rams[ram].to_s] != '' and params['ram_'+ComputerSpec.rams[ram].to_s]
+				rams[i] = params['ram_'+ComputerSpec.rams[ram].to_s]
+
+				i += 1
+		  end
+	  end
+	   @computers = Product.where(subcategory_id: 1).where(computer_spec: ComputerSpec.where(ram: rams))
+			#@computers = Product.where(subcategory_id: 1).where(computer_spec: ComputerSpec.where(ram: params[:ram]))
+		#render :text => "<pre>" + @computers.count.to_s and return
+
+
+  end
+  #Controller for searching products on the category or without
+  def products_search
+	  #render :text => "<pre>" + params.to_yaml and return
+		@products = Product.where("title like ?", "%#{params[:search]}%")
+		@products = @products.where(category_id: params[:category_id]) if params[:category_id] != ''
+		#render :text => "<pre>" + @products.to_yaml and return
+  end
+
+  def products_subcategory
+		products_scope = Product.where(subcategory_id: params[:subcategory])
+
+		products_scope = products_scope.where(condition: Product.conditions[params[:condition]]) if params[:condition] and params[:condition] != ''
+
+		products_scope = products_scope.where("minPrice > ?", params[:minPrice])  if params[:minPrice] != '' and params[:minPrice]
+		products_scope = products_scope.where("maxPrice < ?", params[:maxPrice])  if params[:maxPrice] != '' and params[:maxPrice]
+
+		i = 0
+		rams = Array.new
+		ComputerSpec.rams.keys.each do |ram|
+			if params['ram_'+ComputerSpec.rams[ram].to_s] != '' and params['ram_'+ComputerSpec.rams[ram].to_s]
+				rams[i] = params['ram_'+ComputerSpec.rams[ram].to_s]
+				ram_enter = true
+				i += 1
+			end
+		end
+		if i > 0
+			products_scope = products_scope.where(computer_spec: ComputerSpec.where(ram: rams))
+		end
+
+		#products_scope = products_scope.computer_specs.where(ram: params[:ram])  if params[:ram] != ''
+		@products = smart_listing_create :products, products_scope, partial: "products/list"
+		#render :text => "<pre>" + @products.to_yaml and return
+  end
 
   # GET /products
   # GET /products.json
@@ -58,6 +112,12 @@ class ProductsController < ApplicationController
     #computer = @product.computer_spec.build
     respond_to do |format|
       if @product.save
+	      if params[:product][:images]
+		      # The magic is here ;)
+		      params[:product][:images].each { |image|
+			      @product.pictures.create(image: image)
+		      }
+	      end
 	      #render :text => "<pre>" + @product.id.to_s and return
 				#session[:product_id] = @product.id
         format.html { redirect_to product_path(@product.id) }
@@ -104,6 +164,7 @@ class ProductsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

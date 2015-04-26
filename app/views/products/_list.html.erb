@@ -1,0 +1,12 @@
+<div class="col-md-9">
+  <% smart_listing.collection.each do |product| %>
+
+      <h5><%= product.title %>:<%= product.id %></h5>
+      <%= product.price %>
+      <%= product.condition %>
+
+  <% end %>
+
+  <%= smart_listing.paginate %>
+  <%= smart_listing.pagination_per_page_links %>
+</div>

@@ -4,6 +4,7 @@ class OffersController < InheritedResources::Base
 		@offer = Offer.new
 		@offer.build_computer_spec
 		@offer.build_camera_spec
+
 	end
 
 	def create
@@ -21,10 +22,15 @@ class OffersController < InheritedResources::Base
 			@offer.product_id = params['product_id']
 		end
 
-		#render :text => "<pre>" + offer_params[:offer].to_s and return
+		#render :text => "<pre>" + params[:offer][:images].to_s and return
 		respond_to do |format|
 			if @offer.save
-
+				if params[:offer][:images]
+					# The magic is here ;)
+					params[:offer][:images].each { |image|
+						@offer.pictures.create(image: image)
+					}
+				end
 				format.html { redirect_to product_path(@offer.product_id) }
 				format.json { render :show, status: :created, location: @offer }
 			else

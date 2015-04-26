@@ -16,7 +16,9 @@
     <%= nav_bar static: :top, brand:  "Afooch - Shopping Never Was So Easy!", responsive: true, inverse: true do %>
         <%= menu_group pull: :right do %>
             <% if current_user %>
-                <img src="<%= current_user.photo %>" class="img-thmubail">
+                <% if current_user.avatar %>
+                    <%= image_tag current_user.avatar.url(:thumb) %>
+                <% end %>
                 <%= menu_item "Log Out", destroy_user_session_path %>
             <% end %>
         <% end %>

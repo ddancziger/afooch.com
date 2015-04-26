@@ -1,0 +1,15 @@
+<form action="test" >
+  <%= label_tag "Memory RAM" %>
+  <% ComputerSpec.rams.keys.each do |ram| %>
+
+      <label class="li"><%= check_box_tag 'ram_'+ComputerSpec.rams[ram].to_s, ComputerSpec.rams[ram]%> <u><%= ram %></u></label><br />
+  <% end %>
+  <input type="submit" >
+    </form>
+
+<% if @computers %>
+    <% @computers.each do |c| %>
+        <%= c.computer_spec.ram %>
+
+    <% end %>
+<% end %>
